@@ -1,0 +1,111 @@
+.dashboard-container {
+    min-height: 100vh;
+    background: linear-gradient(to bottom right, rgba(90, 185, 193, 0.05), rgba(237, 130, 24, 0.05));
+  }
+  
+  .dashboard-nav {
+    background: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  
+  .nav-title {
+    color: #5AB9C1;
+    font-weight: 700;
+  }
+  
+  .nav-button {
+    background-color: #ed8218;
+    transition: all 0.3s ease;
+  }
+  
+  .nav-button:hover {
+    background-color: #d36d0e;
+    transform: translateY(-2px);
+  }
+  
+  .profile-card {
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    padding: 2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .profile-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .profile-input {
+    border: 2px solid #e5e7eb;
+    transition: all 0.3s ease;
+  }
+  
+  .profile-input:focus {
+    border-color: #5AB9C1;
+    box-shadow: 0 0 0 2px rgba(90, 185, 193, 0.1);
+    outline: none;
+  }
+  
+  .profile-select {
+    border: 2px solid #e5e7eb;
+    transition: all 0.3s ease;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.5rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+  }
+  
+  .profile-select:focus {
+    border-color: #5AB9C1;
+    box-shadow: 0 0 0 2px rgba(90, 185, 193, 0.1);
+    outline: none;
+  }
+  
+  .submit-button {
+    background-color: #5AB9C1;
+    transition: all 0.3s ease;
+  }
+  
+  .submit-button:hover {
+    background-color: #4da8b0;
+    transform: translateY(-2px);
+  }
+  
+  .feature-card {
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .view-button {
+    color: #5AB9C1;
+    background-color: rgba(90, 185, 193, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .view-button:hover {
+    background-color: rgba(90, 185, 193, 0.2);
+    transform: translateY(-2px);
+  }
+  
+  .register-button {
+    background-color: #ed8218;
+    transition: all 0.3s ease;
+  }
+  
+  .register-button:hover {
+    background-color: #d36d0e;
+    transform: translateY(-2px);
+  }
+  
+  .loading-spinner {
+    border-top-color: #5AB9C1;
+    border-bottom-color: #5AB9C1;
+  }
