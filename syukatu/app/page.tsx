@@ -15,8 +15,7 @@ export default function HomePage() {
               <span className="block text-[#5AB9C1] mt-2">就活情報共有プラットフォーム</span>
             </h1>
             <p className="mt-6 max-w-md mx-auto text-base text-gray-600 sm:text-lg md:text-xl md:max-w-4xl leading-relaxed">
-              ESや面接、コーディングテストの情報を共有して、
-              より良い就職活動を実現しましょう。
+              ESや面接、コーディングテストの情報を共有して、より良い就職活動を実現しましょう。
             </p>
             <div className="mt-8 max-w-md mx-auto sm:flex sm:justify-center md:mt-10">
               <div className="space-y-4 sm:space-y-0 sm:mx-auto sm:inline-grid sm:grid-cols-2 sm:gap-6">
