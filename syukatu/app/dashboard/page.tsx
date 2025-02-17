@@ -232,7 +232,7 @@ export default function DashboardPage() {
           <div className="flex justify-between h-16">
             <div className="flex">
               <div className="flex-shrink-0 flex items-center">
-                <span className="nav-title text-xl">就活情報共有</span>
+                <Link href="/dashboard" className="nav-title text-xl">就活情報共有</Link>
               </div>
             </div>
             <div className="flex items-center">
