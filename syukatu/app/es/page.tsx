@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import Header from '@/components/Header';
 import './style.css';
 
 interface ESEntry {
@@ -73,15 +74,6 @@ export default function ESListPage() {
     loadUserAndEntries();
   }, [router]);
 
-  const userLogout = async () => {
-    try {
-      await supabase.auth.signOut();
-      router.push('/');
-    } catch (error) {
-      console.error('Error signing out:', error);
-    }
-  };
-
   const filteredEntries = entries.filter((entry) => {
     const matchesSearch = 
       entry.company_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -105,28 +97,10 @@ export default function ESListPage() {
 
   return (
     <>
-      <nav className="dashboard-nav">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex">
-              <div className="flex-shrink-0 flex items-center">
-                <Link href="/dashboard" className="nav-title text-xl" style={{ position: 'absolute', top: '20px' }}>就活情報共有</Link>
-              </div>
-            </div>
-            <div className="flex items-center">
-              <span className="text-gray-700 mr-4">
-                {userProfile?.name} ({userProfile?.department})
-              </span>
-              <button
-                onClick={userLogout}
-                className="nav-button inline-flex items-center px-4 py-2 rounded-lg text-sm font-medium text-white"
-              >
-                ログアウト
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Header 
+        userName={userProfile?.name} 
+        userDepartment={userProfile?.department}
+      />
 
       <div className="es-list-container">
         <div className="max-w-7xl mx-auto">
