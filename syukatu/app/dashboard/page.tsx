@@ -1,3 +1,4 @@
+// /app/dashboard/page.tsx
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -41,27 +42,36 @@ export default function DashboardPage() {
 
   const validateAuthAndLoadProfile = async () => {
     try {
-      const { data: { user } } = await supabase.auth.getUser();
+      const { data: { user }, error: authError } = await supabase.auth.getUser();
+      
+      if (authError) {
+        console.error('認証エラー:', authError.message);
+        router.push('/login');
+        return;
+      }
       
       if (!user) {
         router.push('/login');
         return;
       }
 
-      const { data: profile, error } = await supabase
+      const { data: profile, error: profileError } = await supabase
         .from('users_syukatu')
-        .select('*')
+        .select('id, name, department')
         .eq('id', user.id)
         .single();
 
-      if (profile) {
+      if (profileError) {
+        console.error('プロフィール取得エラー:', profileError.message);
+        setShowProfileForm(true);
+      } else if (profile) {
         setUserProfile(profile);
         setShowProfileForm(!profile.name || !profile.department);
       } else {
         setShowProfileForm(true);
       }
     } catch (error) {
-      console.error('Error loading profile:', error);
+      console.error('プロフィール読み込みエラー:', error);
     } finally {
       setLoading(false);
     }
@@ -91,7 +101,7 @@ export default function DashboardPage() {
 
       if (passwordError) throw passwordError;
 
-      const { error: profileError } = await supabase
+      const { data: profileData, error: profileError } = await supabase
         .from('users_syukatu')
         .insert([
           {
@@ -100,14 +110,19 @@ export default function DashboardPage() {
             name,
             department,
           }
-        ]);
+        ])
+        .select('id, name, department')
+        .single();
 
       if (profileError) throw profileError;
 
+      if (profileData) {
+        setUserProfile(profileData);
+      }
+
       setShowProfileForm(false);
-      validateAuthAndLoadProfile();
     } catch (error) {
-      console.error('Profile update error:', error);
+      console.error('プロフィール更新エラー:', error);
       setErrorMsg('プロフィールの更新に失敗しました。もう一度お試しください。');
     }
   };
@@ -229,6 +244,7 @@ export default function DashboardPage() {
       <Header 
         userName={userProfile?.name} 
         userDepartment={userProfile?.department}
+        userId={userProfile?.id}
       />
 
       <div className="dashboard-content max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
@@ -270,6 +286,7 @@ export default function DashboardPage() {
               isEmpty={latestES.length === 0}
               emptyMessage="まだES情報がありません"
               fieldToShow="job_type"
+              hideUserProfile={true}
             />
           )}
 
@@ -282,6 +299,7 @@ export default function DashboardPage() {
               isEmpty={latestInterviews.length === 0}
               emptyMessage="まだ面接情報がありません"
               fieldToShow="job_type"
+              hideUserProfile={true}
             />
           )}
 
@@ -294,6 +312,7 @@ export default function DashboardPage() {
               isEmpty={latestCodingTests.length === 0}
               emptyMessage="まだコーディングテスト情報がありません"
               fieldToShow="job_type"
+              hideUserProfile={true}
             />
           )}
         </div>

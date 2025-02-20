@@ -1,3 +1,4 @@
+//interiew/page.tsx
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -5,6 +6,7 @@ import { supabase } from '@/lib/supabase';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Header from '@/components/Header';
+import LoadingState from '@/components/LoadingState';
 import './style.css';
 
 interface InterviewEntry {
@@ -22,6 +24,7 @@ interface InterviewEntry {
   advice: string;
   created_at: string;
   users_syukatu: {
+    id: string;
     name: string;
     department: string;
   };
@@ -60,6 +63,7 @@ export default function InterviewListPage() {
           .select(`
             *,
             users_syukatu (
+              id,
               name,
               department
             )
@@ -97,11 +101,7 @@ export default function InterviewListPage() {
   };
 
   if (loading) {
-    return (
-      <div className="interview-list-container flex items-center justify-center">
-        <div className="loading-spinner animate-spin rounded-full h-12 w-12 border-t-2 border-b-2"></div>
-      </div>
-    );
+    return <LoadingState />;
   }
 
   return (
@@ -165,13 +165,25 @@ export default function InterviewListPage() {
                         <h3 className="text-lg font-medium text-gray-900">
                           {entry.company_name}
                         </h3>
-                        <span className="interview-year-badge">{entry.graduation_year}</span>
+                        <div className="flex flex-col items-end gap-2">
+                          <span className="interview-year-badge">
+                            {entry.graduation_year}
+                          </span>
+                          <span className="interview-type-badge">
+                            {entry.interview_type}
+                          </span>
+                        </div>
                       </div>
-                      <span className="interview-type-badge">{entry.interview_type}</span>
                     </div>
                     
                     <div className="mt-2 text-sm text-gray-600">
                       {entry.job_type} | {entry.users_syukatu.name}（{entry.users_syukatu.department}）
+                    </div>
+                    
+                    <div className="mt-1">
+                      <Link href={`/user/${entry.users_syukatu.id}`} className="user-link text-xs">
+                        投稿者のプロフィールを見る
+                      </Link>
                     </div>
 
                     <div>

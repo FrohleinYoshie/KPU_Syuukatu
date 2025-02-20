@@ -1,3 +1,5 @@
+//coding-test/page.tsx
+
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -22,6 +24,7 @@ interface CodingTestEntry {
   advice: string;
   created_at: string;
   users_syukatu: {
+    id: string;
     name: string;
     department: string;
   };
@@ -60,6 +63,7 @@ export default function CodingTestListPage() {
           .select(`
             *,
             users_syukatu (
+              id,
               name,
               department
             )
@@ -184,6 +188,12 @@ export default function CodingTestListPage() {
                     
                     <div className="mt-2 text-sm text-gray-600">
                       {entry.job_type} | {entry.users_syukatu.name}（{entry.users_syukatu.department}）
+                    </div>
+                    
+                    <div className="mt-1">
+                      <Link href={`/user/${entry.users_syukatu.id}`} className="user-link text-xs">
+                        投稿者のプロフィールを見る
+                      </Link>
                     </div>
 
                     <div>

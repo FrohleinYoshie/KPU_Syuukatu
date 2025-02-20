@@ -1,3 +1,5 @@
+//es/page.tsx
+
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -18,6 +20,7 @@ interface ESEntry {
   preparation_methods: string;
   created_at: string;
   users_syukatu: {
+    id: string;
     name: string;
     department: string;
   };
@@ -56,6 +59,7 @@ export default function ESListPage() {
           .select(`
             *,
             users_syukatu (
+              id,
               name,
               department
             )
@@ -87,9 +91,14 @@ export default function ESListPage() {
   const uniqueYears = Array.from(new Set(entries.map(entry => entry.graduation_year))).sort();
   const esFormats = ['履歴書の提出', 'フォームの回答'];
 
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('ja-JP');
+  };
+
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="es-list-container flex items-center justify-center">
         <div className="loading-spinner animate-spin rounded-full h-12 w-12 border-t-2 border-b-2"></div>
       </div>
     );
@@ -97,8 +106,8 @@ export default function ESListPage() {
 
   return (
     <>
-      <Header 
-        userName={userProfile?.name} 
+      <Header
+        userName={userProfile?.name}
         userDepartment={userProfile?.department}
       />
 
@@ -161,6 +170,12 @@ export default function ESListPage() {
                     <div className="mt-2 text-sm text-gray-600">
                       {entry.job_type} | {entry.users_syukatu.name}（{entry.users_syukatu.department}）
                     </div>
+                    
+                    <div className="mt-1">
+                      <Link href={`/user/${entry.users_syukatu.id}`} className="user-link text-xs">
+                        投稿者のプロフィールを見る
+                      </Link>
+                    </div>
 
                     <div>
                       <h4 className="es-section-title">ES形式</h4>
@@ -178,7 +193,7 @@ export default function ESListPage() {
                   </div>
                   
                   <div className="es-card-footer text-sm text-gray-500">
-                    登録日: {new Date(entry.created_at).toLocaleDateString('ja-JP')}
+                    登録日: {formatDate(entry.created_at)}
                   </div>
                 </div>
               ))}
