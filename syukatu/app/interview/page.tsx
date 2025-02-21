@@ -1,4 +1,3 @@
-//interiew/page.tsx
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -112,9 +111,9 @@ export default function InterviewListPage() {
       />
 
       <div className="interview-list-container">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex justify-between items-center">
-            <h1 className="interview-list-title text-2xl font-bold">面接情報一覧</h1>
+        <div className="content-wrapper">
+          <div className="header-section">
+            <h1 className="interview-list-title">面接情報一覧</h1>
           </div>
 
           <div className="interview-filter-container">
@@ -160,57 +159,55 @@ export default function InterviewListPage() {
               {filteredEntries.map((entry) => (
                 <div key={entry.id} className="interview-card">
                   <div className="interview-card-content">
-                    <div className="flex flex-col items-start">
-                      <div className="flex justify-between w-full">
-                        <h3 className="text-lg font-medium text-gray-900">
-                          {entry.company_name}
-                        </h3>
-                        <div className="flex flex-col items-end gap-2">
-                          <span className="interview-year-badge">
-                            {entry.graduation_year}
-                          </span>
-                          <span className="interview-type-badge">
-                            {entry.interview_type}
-                          </span>
-                        </div>
+                    <div className="card-header">
+                      <h3 className="card-title">{entry.company_name}</h3>
+                      <div className="badge-container">
+                        <span className="interview-year-badge">{entry.graduation_year}</span>
+                        <span className="interview-type-badge">{entry.interview_type}</span>
                       </div>
                     </div>
                     
-                    <div className="mt-2 text-sm text-gray-600">
+                    <div className="card-subtitle">
                       {entry.job_type} | {entry.users_syukatu.name}（{entry.users_syukatu.department}）
                     </div>
                     
-                    <div className="mt-1">
-                      <Link href={`/user/${entry.users_syukatu.id}`} className="user-link text-xs">
+                    <div className="profile-link">
+                      <Link href={`/user/${entry.users_syukatu.id}`} className="user-link">
                         投稿者のプロフィールを見る
                       </Link>
                     </div>
 
-                    <div>
+                    <div className="card-section">
                       <h4 className="interview-section-title">面接形式</h4>
                       <p className="interview-section-content">
                         {entry.interview_format} / {entry.interview_duration} / 面接官{entry.num_of_interviewers}名
                       </p>
+                    </div>
 
+                    <div className="card-section">
                       <h4 className="interview-section-title">質問内容</h4>
                       <p className="interview-section-content">{entry.questions}</p>
+                    </div>
 
+                    <div className="card-section">
                       <h4 className="interview-section-title">面接の雰囲気</h4>
                       <p className="interview-section-content">{entry.atmosphere}</p>
+                    </div>
 
+                    <div className="card-section">
                       <h4 className="interview-section-title">準備方法・対策</h4>
                       <p className="interview-section-content">{entry.preparation_methods}</p>
-
-                      {entry.advice && (
-                        <>
-                          <h4 className="interview-section-title">アドバイス・補足</h4>
-                          <p className="interview-section-content">{entry.advice}</p>
-                        </>
-                      )}
                     </div>
+
+                    {entry.advice && (
+                      <div className="card-section">
+                        <h4 className="interview-section-title">アドバイス・補足</h4>
+                        <p className="interview-section-content">{entry.advice}</p>
+                      </div>
+                    )}
                   </div>
                   
-                  <div className="interview-card-footer text-sm text-gray-500">
+                  <div className="interview-card-footer">
                     登録日: {formatDate(entry.created_at)}
                   </div>
                 </div>

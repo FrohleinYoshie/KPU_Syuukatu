@@ -1,5 +1,3 @@
-//es/page.tsx
-
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -98,8 +96,8 @@ export default function ESListPage() {
 
   if (loading) {
     return (
-      <div className="es-list-container flex items-center justify-center">
-        <div className="loading-spinner animate-spin rounded-full h-12 w-12 border-t-2 border-b-2"></div>
+      <div className="es-list-container loading-container">
+        <div className="loading-spinner animate-spin"></div>
       </div>
     );
   }
@@ -112,9 +110,9 @@ export default function ESListPage() {
       />
 
       <div className="es-list-container">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex justify-between items-center">
-            <h1 className="es-list-title text-2xl font-bold">ES情報一覧</h1>
+        <div className="content-wrapper">
+          <div className="header-section">
+            <h1 className="es-list-title">ES情報一覧</h1>
           </div>
 
           <div className="es-filter-container">
@@ -160,39 +158,43 @@ export default function ESListPage() {
               {filteredEntries.map((entry) => (
                 <div key={entry.id} className="es-card">
                   <div className="es-card-content">
-                    <div className="flex justify-between items-start">
-                      <h3 className="text-lg font-medium text-gray-900">
-                        {entry.company_name}
-                      </h3>
+                    <div className="card-header">
+                      <h3 className="card-title">{entry.company_name}</h3>
                       <span className="es-badge">{entry.graduation_year}</span>
                     </div>
                     
-                    <div className="mt-2 text-sm text-gray-600">
+                    <div className="card-subtitle">
                       {entry.job_type} | {entry.users_syukatu.name}（{entry.users_syukatu.department}）
                     </div>
                     
-                    <div className="mt-1">
-                      <Link href={`/user/${entry.users_syukatu.id}`} className="user-link text-xs">
+                    <div className="profile-link">
+                      <Link href={`/user/${entry.users_syukatu.id}`} className="user-link">
                         投稿者のプロフィールを見る
                       </Link>
                     </div>
 
-                    <div>
+                    <div className="card-section">
                       <h4 className="es-section-title">ES形式</h4>
                       <p className="es-section-content">{entry.es_format}</p>
+                    </div>
 
+                    <div className="card-section">
                       <h4 className="es-section-title">内容・テーマ</h4>
                       <p className="es-section-content">{entry.es_theme}</p>
+                    </div>
 
+                    <div className="card-section">
                       <h4 className="es-section-title">注意したこと</h4>
                       <p className="es-section-content">{entry.important_points}</p>
+                    </div>
 
+                    <div className="card-section">
                       <h4 className="es-section-title">対策内容</h4>
                       <p className="es-section-content">{entry.preparation_methods}</p>
                     </div>
                   </div>
                   
-                  <div className="es-card-footer text-sm text-gray-500">
+                  <div className="es-card-footer">
                     登録日: {formatDate(entry.created_at)}
                   </div>
                 </div>

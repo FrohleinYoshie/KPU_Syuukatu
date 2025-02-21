@@ -1,5 +1,3 @@
-//coding-test/page.tsx
-
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -47,17 +45,14 @@ export default function CodingTestListPage() {
           router.push('/login');
           return;
         }
-
         const { data: profile } = await supabase
           .from('users_syukatu')
           .select('name, department')
           .eq('id', user.id)
           .single();
-
         if (profile) {
           setUserProfile(profile);
         }
-
         const { data, error } = await supabase
           .from('coding_tests_syukatu')
           .select(`
@@ -69,7 +64,6 @@ export default function CodingTestListPage() {
             )
           `)
           .order('created_at', { ascending: false });
-
         if (error) throw error;
         setEntries(data || []);
       } catch (error) {
@@ -78,7 +72,6 @@ export default function CodingTestListPage() {
         setLoading(false);
       }
     };
-
     loadUserAndEntries();
   }, [router]);
 
@@ -88,7 +81,6 @@ export default function CodingTestListPage() {
       entry.job_type.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesDifficulty = !selectedDifficulty || entry.test_difficulty === selectedDifficulty;
     const matchesYear = !selectedYear || entry.graduation_year === selectedYear;
-    
     return matchesSearch && matchesDifficulty && matchesYear;
   });
 
@@ -116,17 +108,12 @@ export default function CodingTestListPage() {
 
   return (
     <>
-      <Header
-        userName={userProfile?.name}
-        userDepartment={userProfile?.department}
-      />
-
+      <Header userName={userProfile?.name} userDepartment={userProfile?.department} />
       <div className="coding-test-list-container">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex justify-between items-center">
-            <h1 className="coding-test-list-title text-2xl font-bold">コーディングテスト情報一覧</h1>
+        <div className="content-wrapper">
+          <div className="header-section">
+            <h1 className="coding-test-list-title">コーディングテスト情報一覧</h1>
           </div>
-
           <div className="coding-test-filter-container">
             <input
               type="text"
@@ -156,7 +143,6 @@ export default function CodingTestListPage() {
               ))}
             </select>
           </div>
-
           {filteredEntries.length === 0 ? (
             <div className="empty-state">
               <p>
@@ -170,67 +156,55 @@ export default function CodingTestListPage() {
               {filteredEntries.map((entry) => (
                 <div key={entry.id} className="coding-test-card">
                   <div className="coding-test-card-content">
-                    <div className="flex flex-col items-start">
-                      <div className="flex justify-between w-full">
-                        <h3 className="text-lg font-medium text-gray-900">
-                          {entry.company_name}
-                        </h3>
-                        <div className="flex flex-col items-end gap-2">
-                          <span className="coding-test-year-badge">
-                            {entry.graduation_year}
-                          </span>
-                          <span className={`coding-test-difficulty-badge ${getDifficultyColor(entry.test_difficulty)}`}>
-                            {entry.test_difficulty}
-                          </span>
-                        </div>
+                    <div className="card-header">
+                      <h3 className="card-title">{entry.company_name}</h3>
+                      <div className="badge-container">
+                        <span className="coding-test-year-badge">{entry.graduation_year}</span>
+                        <span className={`coding-test-difficulty-badge ${getDifficultyColor(entry.test_difficulty)}`}>
+                          {entry.test_difficulty}
+                        </span>
                       </div>
                     </div>
-                    
-                    <div className="mt-2 text-sm text-gray-600">
+                    <div className="card-subtitle">
                       {entry.job_type} | {entry.users_syukatu.name}（{entry.users_syukatu.department}）
                     </div>
-                    
-                    <div className="mt-1">
-                      <Link href={`/user/${entry.users_syukatu.id}`} className="user-link text-xs">
+                    <div className="profile-link">
+                      <Link href={`/user/${entry.users_syukatu.id}`} className="user-link">
                         投稿者のプロフィールを見る
                       </Link>
                     </div>
-
-                    <div>
+                    <div className="card-section">
                       <h4 className="coding-test-section-title">テスト形式</h4>
                       <p className="coding-test-section-content">{entry.test_format}</p>
-
+                    </div>
+                    <div className="card-section">
                       <h4 className="coding-test-section-title">所要時間</h4>
                       <p className="coding-test-section-content">{entry.test_duration}</p>
-
+                    </div>
+                    <div className="card-section">
                       <h4 className="coding-test-section-title">使用可能言語</h4>
-                      <div className="flex flex-wrap gap-1 mt-1">
+                      <div className="language-tags">
                         {entry.programming_languages.map((lang) => (
-                          <span 
-                            key={lang}
-                            className="coding-test-language-tag"
-                          >
-                            {lang}
-                          </span>
+                          <span key={lang} className="coding-test-language-tag">{lang}</span>
                         ))}
                       </div>
-
+                    </div>
+                    <div className="card-section">
                       <h4 className="coding-test-section-title">テスト内容</h4>
                       <p className="coding-test-section-content">{entry.test_contents}</p>
-
+                    </div>
+                    <div className="card-section">
                       <h4 className="coding-test-section-title">準備方法・対策</h4>
                       <p className="coding-test-section-content">{entry.preparation_methods}</p>
-
-                      {entry.advice && (
-                        <>
-                          <h4 className="coding-test-section-title">アドバイス・補足</h4>
-                          <p className="coding-test-section-content">{entry.advice}</p>
-                        </>
-                      )}
                     </div>
+                    {entry.advice && (
+                      <div className="card-section">
+                        <h4 className="coding-test-section-title">アドバイス・補足</h4>
+                        <p className="coding-test-section-content">{entry.advice}</p>
+                      </div>
+                    )}
                   </div>
-                  
-                  <div className="coding-test-card-footer text-sm text-gray-500">
+                  <div className="coding-test-card-footer">
                     登録日: {formatDate(entry.created_at)}
                   </div>
                 </div>
@@ -238,11 +212,7 @@ export default function CodingTestListPage() {
             </div>
           )}
         </div>
-
-        <Link
-          href="/coding-test/register"
-          className="coding-test-register-button"
-        >
+        <Link href="/coding-test/register" className="coding-test-register-button">
           新規登録
         </Link>
       </div>
