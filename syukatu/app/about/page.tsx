@@ -74,18 +74,6 @@ export default function AboutPage() {
                       d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" 
                     />
                   )
-                },
-                {
-                  title: "就活中企業一覧",
-                  description: "現在就活を行なっている企業を一覧として表示できます。",
-                  icon: (
-                    <path 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round" 
-                      strokeWidth={2} 
-                      d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" 
-                    />
-                  )
                 }
               ].map((feature, index) => (
                 <div key={index} className="feature-card pt-6">
@@ -196,18 +184,6 @@ export default function AboutPage() {
                       strokeLinejoin="round" 
                       strokeWidth={2} 
                       d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" 
-                    />
-                  )
-                },
-                {
-                  title: "面接情報",
-                  description: "実際の面接での質問内容や、回答のポイントを共有できます。",
-                  icon: (
-                    <path 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round" 
-                      strokeWidth={2} 
-                      d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" 
                     />
                   )
                 }
