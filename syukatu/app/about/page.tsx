@@ -34,10 +34,10 @@ export default function AboutPage() {
           <h1 className="text-3xl font-bold mb-3">このアプリは、本大学の学生向けに 「就職活動を効率化」 するための情報共有プラットフォームです。</h1>
         </div>
       </div>
-      <div className="mt-24">
+      <div className="mt-24 justify-center">
 
         <h1 className="text-3xl font-bold mb-3"　>主な機能</h1>
-            <div className="grid grid-cols-3 gap-8 sm:grid-cols-2 lg:grid-cols-2">
+            <div className="grid grid-cols-3 gap-8 sm:grid-cols-2 lg:grid-cols-1">
               {[
                 {
                   title: "ES対策",
@@ -103,7 +103,7 @@ export default function AboutPage() {
 
         <div className='mt-24'>
           <h1 className="text-3xl font-bold mb-3"　>このアプリの目的</h1>
-              <div className="grid grid-cols-3 gap-8 sm:grid-cols-2 lg:grid-cols-2">
+              <div className="grid grid-cols-3 gap-8 sm:grid-cols-2 lg:grid-cols-1">
               {[
                 {
                   title: "コーディングテストの対策",
@@ -156,7 +156,7 @@ export default function AboutPage() {
         </div>
         <div className='mt-24'>
           <h1 className="text-3xl font-bold mb-3"　>目指すゴール</h1>
-              <div className="grid grid-cols-3 gap-8 sm:grid-cols-2 lg:grid-cols-2">
+          <div className="grid grid-cols-4 gap-8 sm:grid-cols-2 lg:grid-cols-1 mx-auto">
               {[
                 {
                   title: "大学側からの一人一人に合った支援の提供",
