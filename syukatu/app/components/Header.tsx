@@ -56,14 +56,14 @@ export default function Header({ userName, userDepartment, userId }: HeaderProps
         <div className={styles.navFlex}>
           <div className={styles.logoSection}>
             <Link href="/dashboard" className={styles.logoText}>
-              就活管理アプリ
+              First Carreer
             </Link>
             <nav className={styles.navLinks}>
               <Link href="/es" className={styles.navLink}>
-                ES情報
+                ES
               </Link>
               <Link href="/interview" className={styles.navLink}>
-                面接情報
+                面接
               </Link>
               <Link href="/coding-test" className={styles.navLink}>
                 コーディングテスト
